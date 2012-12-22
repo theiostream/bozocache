@@ -1,3 +1,11 @@
+/* 
+This project is licensed under the terms of the
+DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE, version 3,
+as published by theiostream on March 2012, as it follows:
+
+0. You just DO WHAT THE FUCK YOU WANT TO.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
