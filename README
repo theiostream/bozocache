@@ -11,6 +11,7 @@ A: You're not very experienced with this, apparently. Check https://github.com/k
 ## BUILDING
 1. git submodule update --init
 2. make
+3. sudo make install
 
 ## CREDITS
 This borrows some code from:

@@ -12,36 +12,27 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <MobileDevice.h>
 
-#define DPUTS puts
-#define DPRINTF printf
-
 static _Bool is_cwd = 0;
 static _Bool gen_path = 0;
 static char outputfile[PATH_MAX];
 
 static void device_notification_callback(am_device_notification_callback_info *info, void *thing) {
 	if (info->msg != ADNCI_MSG_CONNECTED) return;
-	DPUTS("Opened device connection.");
+	puts("Opened device connection.");
 	
 	am_device *dev = info->dev;
 	AMDeviceConnect(dev);
 	assert(AMDeviceIsPaired(dev));
 	assert(AMDeviceValidatePairing(dev) == 0);
 	assert(AMDeviceStartSession(dev) == 0);
-	
-	DPUTS("sup");
-	
+		
 	struct afc_connection *afc;
 	service_conn_t afc_conn;
 	assert(AMDeviceStartService(dev, CFSTR("com.apple.afc2"), &afc_conn, NULL) == 0);
 	assert(AFCConnectionOpen(afc_conn, 0, &afc) == 0);
 	
-	DPUTS("started afcs");
-	
 	char cachepath[63];
 	const char *caches[3] = {"dyld_shared_cache_armv7s", "dyld_shared_cache_armv7", "dyld_shared_cache_armv6"};
-	
-	DPUTS("caches!");
 	
 	struct afc_dictionary *dict;
 	unsigned int cache_index;
@@ -51,10 +42,7 @@ static void device_notification_callback(am_device_notification_callback_info *i
 		strcpy(cachepath, "/System/Library/Caches/com.apple.dyld/");
 		fullpath = strcat(cachepath, caches[cache_index]);
 		
-		DPRINTF("full p: %s\n", fullpath);
-		DPRINTF("r: %i\n", AFCFileInfoOpen(afc, fullpath, &dict));
 		if (AFCFileInfoOpen(afc, fullpath, &dict) == 0) {
-			DPUTS("hai");
 			char *key, *value;
 			while (1) {
 				assert(AFCKeyValueRead(dict, &key, &value) == 0);
@@ -71,8 +59,6 @@ static void device_notification_callback(am_device_notification_callback_info *i
 			assert(AFCKeyValueClose(dict) == 0);
 			goto _label_hasfile;
 		}
-		
-		DPUTS("oky");
 	}
 	
 	fprintf(stderr, "Could not find cache file.\n");
