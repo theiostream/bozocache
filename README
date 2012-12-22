@@ -1,0 +1,18 @@
+## SUMMARY
+** This requires "afc2add" to be installed from Cydia. **
+USAGE: bozocache <path for shared cache output (assumes cwd/cache_name)>
+
+## DESCRIPTION
+Copying the dyld shared cache was the only reason I even got a program like iExplorer. I felt this was stupid and created this tool to get it.
+
+Q: Why not use ssh?
+A: You're not very experienced with this, apparently. Check https://github.com/kennytm/Miscellaneous/issues/1.
+
+## BUILDING
+1. git submodule update --init
+2. make
+
+## CREDITS
+This borrows some code from:
+* comex/spirit's dl.c (https://github.com/comex/spirit/blob/master/dl/dl.c)
+* tristero/mobiledeviceaccess's MobileDeviceAccess.m (https://bitbucket.org/tristero/mobiledeviceaccess/src/f1b0e1ff086d/MobileDeviceAccess.m)
