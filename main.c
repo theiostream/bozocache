@@ -113,7 +113,6 @@ static void sigint_handler(int sig) {
 
 int main(int argc, char *argv[]) {
 	if (argc > 1) {
-		printf("Got arg %s", *argv);
 		struct stat st;
 		if (stat(dirname(argv[1]), &st)==-1 && errno==ENOENT) {
 			fprintf(stderr, "Directory for writing does not exist.\n");
